@@ -22,7 +22,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <head />
       <body className={clsx('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
         <Providers themeProps={{ attribute: 'class' }}>
-          <main className='container mx-auto max-w-7xl pt-16 px-6 flex-grow'>{children}</main>
+          <main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'>{children}</main>
         </Providers>
       </body>
     </html>
