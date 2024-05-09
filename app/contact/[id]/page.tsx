@@ -37,8 +37,8 @@ const AddressDetailPage: React.FC = () => {
             {
               title: 'Address',
               render: (
-                <Snippet variant='bordered' className='w-full overflow-hidden' symbol={null}>
-                  EQBBMAr-
+                <Snippet variant='bordered' className='line-clamp-1 w-full break-all' symbol={null}>
+                  <span className='line-clamp-1 w-full break-all'>234sfasdfsag134</span>
                 </Snippet>
               ),
             },
