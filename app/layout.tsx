@@ -20,9 +20,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang='en' suppressHydrationWarning>
       <head />
-      <body className={clsx('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
-        <Providers themeProps={{ attribute: 'class' }}>
-          <main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'>{children}</main>
+      <body
+        className={clsx('min-h-screen bg-neutral-950 font-sans antialiased', fontSans.variable)}
+      >
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+          <main className='container mx-auto max-w-7xl flex-grow px-6 pt-8'>{children}</main>
         </Providers>
       </body>
     </html>
