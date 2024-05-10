@@ -3,7 +3,7 @@
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody } from '@nextui-org/card';
-import { CaretLeft, MagnifyingGlass, Plus, Star } from '@phosphor-icons/react';
+import { Camera, CaretLeft, MagnifyingGlass, Plus, Star } from '@phosphor-icons/react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Divider } from '@nextui-org/divider';
@@ -220,24 +220,19 @@ const AddressBookPage: React.FC = () => {
           {(onClose) => (
             <ModalContent>
               <ModalHeader className='flex flex-col gap-1'>Modal Title</ModalHeader>
-              <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-                  risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
-                  quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-                  risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
-                  quam.
-                </p>
+              <ModalBody className='flex flex-col items-center'>
+                <div className='flex h-20 w-20 items-center justify-center rounded-xl bg-zinc-600'>
+                  <Camera size={24} />
+                </div>
+                <Input placeholder='Address' name='Name' />
+                <Input placeholder='Name' name='Address' />
               </ModalBody>
               <ModalFooter>
-                <Button color='danger' variant='light' onPress={onClose}>
-                  Close
+                <Button variant='light' onPress={onClose}>
+                  Cancel
                 </Button>
                 <Button color='primary' onPress={onClose}>
-                  Action
+                  Save
                 </Button>
               </ModalFooter>
             </ModalContent>
