@@ -16,9 +16,11 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/dropdown';
-import { useMemo } from 'react';
-
-import { TonConnectButton } from '@tonconnect/ui-react';
+import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
+import { useEffect } from 'react';
+import { useAddressBalance } from '@/hooks';
+import { Skeleton } from '@nextui-org/skeleton';
+import { toNano } from '@ton/core';
 
 const MOCK_CRYPTO = [
   {
@@ -53,12 +55,21 @@ const MOCK_CRYPTO = [
 
 const Home: React.FC = () => {
   const router = useRouter();
+  const address = useTonAddress();
+
+  const { data, isLoading, isSuccess } = useAddressBalance(address);
+
+  useEffect(() => {
+    if (!address) {
+      router.push('/connect');
+    }
+  }, [address, router]);
 
   return (
     <section className='flex h-full flex-col items-center justify-center gap-8 pt-8 md:pt-10'>
       <TonConnectButton />
 
-      <div className='mb-4 flex flex-col gap-1 text-center'>
+      <div className='mb-4 flex flex-col items-center gap-3 text-center'>
         <h1>Balance</h1>
         <Dropdown>
           <DropdownTrigger>
@@ -72,7 +83,11 @@ const Home: React.FC = () => {
             <DropdownItem key='date'>XRP</DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <div className='text-5xl font-semibold'>200.00</div>
+
+        <div className='text-5xl font-semibold'>
+          {!isSuccess && <Skeleton className='h-10 w-48 rounded-lg' />}
+          {isSuccess && Number(data.result / 10 ** 9)}
+        </div>
       </div>
 
       <div className='grid w-full grid-cols-2 gap-2'>
