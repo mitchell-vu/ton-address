@@ -3,21 +3,16 @@
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody } from '@nextui-org/card';
-import { CaretLeft, MagnifyingGlass, Plus } from '@phosphor-icons/react';
+import { ArrowDownLeft, CaretLeft, MagnifyingGlass, Plus } from '@phosphor-icons/react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Divider } from '@nextui-org/divider';
 import Link from 'next/link';
 import { Input } from '@nextui-org/input';
 import { Chip } from '@nextui-org/chip';
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-} from '@nextui-org/modal';
+import Image from 'next/image';
+import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
+import { humanizeNumber } from '@/utils/number';
 
 const MOCK_DATA = [
   {
@@ -94,18 +89,8 @@ const MOCK_DATA = [
 
 const AddressBookPage: React.FC = () => {
   const router = useRouter();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-  const alphabetizedData = alphabet
-    .map((letter) => {
-      return {
-        letter,
-        data: MOCK_DATA.filter(({ firstName }) => firstName.startsWith(letter)),
-      };
-    })
-    .filter(({ data }) => data.length > 0);
 
   return (
     <section className='relative flex w-full flex-col gap-4'>
@@ -124,31 +109,38 @@ const AddressBookPage: React.FC = () => {
 
       <Card className='w-full'>
         <CardBody className='gap-2'>
-          {MOCK_DATA.map(({ id, firstName, lastName, address, imageUrl }, index) => (
+          {MOCK_DATA.map(({ id, imageUrl, firstName, address }, index) => (
             <React.Fragment key={id}>
-              <Link
-                href={`/contact/${id}`}
-                className='flex flex-row items-center justify-between gap-3 rounded-xl p-2 transition-all hover:bg-zinc-800'
-              >
-                Chuyển từ ai tới ai
-              </Link>
+              <div className='flex flex-col gap-2 p-2'>
+                <div className='flex flex-row items-center gap-2'>
+                  <Chip
+                    size='sm'
+                    startContent={<ArrowDownLeft />}
+                    radius='sm'
+                    color='success'
+                    variant='flat'
+                  >
+                    In
+                  </Chip>
+
+                  <div className='line-clamp-1 whitespace-nowrap text-xs'>From {address}</div>
+                </div>
+
+                <div className='flex flex-row items-center justify-between text-sm'>
+                  <div className='flex flex-row items-center gap-2'>
+                    <Avatar src={imageUrl} className='h-6 w-6' />
+
+                    {firstName}
+                  </div>
+                  <div className='font-semibold'>+ {humanizeNumber(2)} TON</div>
+                </div>
+              </div>
 
               {index !== MOCK_DATA.length - 1 && <Divider orientation='horizontal' />}
             </React.Fragment>
           ))}
         </CardBody>
       </Card>
-
-      <Button
-        isIconOnly
-        variant='shadow'
-        color='primary'
-        className='fixed bottom-8 right-8 h-16 w-16'
-        size='lg'
-        onClick={onOpen}
-      >
-        <Plus size={24} weight='bold' />
-      </Button>
     </section>
   );
 };

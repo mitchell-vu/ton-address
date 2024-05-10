@@ -1,6 +1,6 @@
 'use client';
 
-import { formatCurrency, humanizeNumber } from '@/utils/number';
+import { formatCurrency } from '@/utils/number';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody } from '@nextui-org/card';
 import {
@@ -15,6 +15,10 @@ import {
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/dropdown';
+import { useMemo } from 'react';
+
+import { TonConnectButton } from '@tonconnect/ui-react';
 
 const MOCK_CRYPTO = [
   {
@@ -52,12 +56,26 @@ const Home: React.FC = () => {
 
   return (
     <section className='flex h-full flex-col items-center justify-center gap-8 pt-8 md:pt-10'>
+      <TonConnectButton />
+
       <div className='mb-4 flex flex-col gap-1 text-center'>
         <h1>Balance</h1>
-        <div className='text-5xl font-semibold'>$200.00</div>
+        <Dropdown>
+          <DropdownTrigger>
+            <Button variant='bordered' className='w-auto capitalize' size='sm' radius='full'>
+              TON
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu disallowEmptySelection selectionMode='single'>
+            <DropdownItem key='text'>TON</DropdownItem>
+            <DropdownItem key='number'>BTC</DropdownItem>
+            <DropdownItem key='date'>XRP</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+        <div className='text-5xl font-semibold'>200.00</div>
       </div>
 
-      <div className='flex flex-row gap-6'>
+      <div className='grid w-full grid-cols-2 gap-2'>
         {[
           {
             icon: <User size={20} weight='bold' />,
@@ -80,13 +98,17 @@ const Home: React.FC = () => {
             onClick: () => router.push('/transactions'),
           },
         ].map(({ icon, label, onClick }, index) => (
-          <div key={index} className='flex w-12 flex-col items-center gap-2' onClick={onClick}>
-            <Button isIconOnly variant='bordered' radius='full' size='lg' onClick={onClick}>
-              {icon}
-            </Button>
+          <Button
+            key={index}
+            variant='bordered'
+            size='lg'
+            onClick={onClick}
+            className='flex h-auto flex-col py-6'
+          >
+            {icon}
 
             <span className='text-sm font-semibold'>{label}</span>
-          </div>
+          </Button>
         ))}
       </div>
 
