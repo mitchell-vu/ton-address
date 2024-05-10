@@ -133,7 +133,7 @@ const AddressBookPage: React.FC = () => {
                       src='https://i.pravatar.cc/150?u=12ae8065-bd3d-4f8e-92b6-408e59ec7592'
                       className='h-6 w-6'
                     />
-                    sdf
+                    Mitchell Vu
                   </div>
                   <div className='font-semibold'>
                     + {humanizeNumber(nanoToNumber(Number(fee)), 'standard', 8)} TON

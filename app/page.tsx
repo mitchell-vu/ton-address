@@ -20,7 +20,6 @@ import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import { useEffect } from 'react';
 import { useAddressBalance } from '@/hooks';
 import { Skeleton } from '@nextui-org/skeleton';
-import { toNano } from '@ton/core';
 
 const MOCK_CRYPTO = [
   {
@@ -90,25 +89,25 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className='grid w-full grid-cols-2 gap-2'>
+      <div className='grid w-full max-w-xl grid-cols-2 gap-2'>
         {[
           {
-            icon: <User size={20} weight='bold' />,
+            icon: <User size={24} weight='bold' />,
             label: 'Contact',
             onClick: () => router.push('/contact'),
           },
           {
-            icon: <ArrowUp size={20} weight='bold' />,
+            icon: <ArrowUp size={24} weight='bold' />,
             label: 'Send',
             onClick: () => router.push('/transfer'),
           },
           {
-            icon: <ArrowDown size={20} weight='bold' />,
+            icon: <ArrowDown size={24} weight='bold' />,
             label: 'Receive',
             onClick: () => router.push('/receive'),
           },
           {
-            icon: <ArrowsCounterClockwise size={20} weight='bold' />,
+            icon: <ArrowsCounterClockwise size={24} weight='bold' />,
             label: 'Transaction',
             onClick: () => router.push('/transactions'),
           },
