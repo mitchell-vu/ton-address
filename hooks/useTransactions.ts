@@ -1,15 +1,17 @@
+import { TransactionApiResponse } from '@/styles/api/tonhub';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useAddressInfomation = (address: string) => {
+const useTransactions = (address: string, limit?: number) => {
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ['addressBalance', address],
+    queryKey: ['transactions', address],
     queryFn: async () =>
-      axios.request({
+      axios.request<TransactionApiResponse>({
         method: 'GET',
-        url: 'https://sandbox.tonhubapi.com/getAddressBalance',
+        url: 'https://sandbox.tonhubapi.com/getTransactions',
         params: {
           address,
+          limit,
         },
       }),
     enabled: !!address,
@@ -19,4 +21,4 @@ const useAddressInfomation = (address: string) => {
   return { data, isLoading, isError, isSuccess };
 };
 
-export default useAddressInfomation;
+export default useTransactions;

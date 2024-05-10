@@ -1,6 +1,6 @@
 'use client';
 
-import { formatCurrency } from '@/utils/number';
+import { formatCurrency, nanoToNumber } from '@/utils/number';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody } from '@nextui-org/card';
 import {
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
 
         <div className='text-5xl font-semibold'>
           {!isSuccess && <Skeleton className='h-10 w-48 rounded-lg' />}
-          {isSuccess && Number(data.result / 10 ** 9)}
+          {isSuccess && nanoToNumber(data)}
         </div>
       </div>
 
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
           },
           {
             icon: <ArrowsCounterClockwise size={20} weight='bold' />,
-            label: 'Purchase',
+            label: 'Transaction',
             onClick: () => router.push('/transactions'),
           },
         ].map(({ icon, label, onClick }, index) => (

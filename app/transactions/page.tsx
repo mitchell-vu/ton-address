@@ -3,16 +3,15 @@
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody } from '@nextui-org/card';
-import { ArrowDownLeft, CaretLeft, MagnifyingGlass, Plus } from '@phosphor-icons/react';
+import { ArrowDownLeft, CaretLeft, MagnifyingGlass } from '@phosphor-icons/react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Divider } from '@nextui-org/divider';
-import Link from 'next/link';
 import { Input } from '@nextui-org/input';
 import { Chip } from '@nextui-org/chip';
-import Image from 'next/image';
-import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
-import { humanizeNumber } from '@/utils/number';
+import { humanizeNumber, nanoToNumber } from '@/utils/number';
+import { useTransactions } from '@/hooks';
+import { useTonAddress } from '@tonconnect/ui-react';
 
 const MOCK_DATA = [
   {
@@ -89,9 +88,11 @@ const MOCK_DATA = [
 
 const AddressBookPage: React.FC = () => {
   const router = useRouter();
+  const address = useTonAddress();
 
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const { data, isLoading, isSuccess } = useTransactions(address);
 
+  console.log(data);
   return (
     <section className='relative flex w-full flex-col gap-4'>
       <Button
@@ -109,8 +110,8 @@ const AddressBookPage: React.FC = () => {
 
       <Card className='w-full'>
         <CardBody className='gap-2'>
-          {MOCK_DATA.map(({ id, imageUrl, firstName, address }, index) => (
-            <React.Fragment key={id}>
+          {data?.map(({ fee }, index) => (
+            <React.Fragment key={index}>
               <div className='flex flex-col gap-2 p-2'>
                 <div className='flex flex-row items-center gap-2'>
                   <Chip
@@ -120,7 +121,7 @@ const AddressBookPage: React.FC = () => {
                     color='success'
                     variant='flat'
                   >
-                    In
+                    Receive
                   </Chip>
 
                   <div className='line-clamp-1 whitespace-nowrap text-xs'>From {address}</div>
@@ -128,11 +129,15 @@ const AddressBookPage: React.FC = () => {
 
                 <div className='flex flex-row items-center justify-between text-sm'>
                   <div className='flex flex-row items-center gap-2'>
-                    <Avatar src={imageUrl} className='h-6 w-6' />
-
-                    {firstName}
+                    <Avatar
+                      src='https://i.pravatar.cc/150?u=12ae8065-bd3d-4f8e-92b6-408e59ec7592'
+                      className='h-6 w-6'
+                    />
+                    sdf
                   </div>
-                  <div className='font-semibold'>+ {humanizeNumber(2)} TON</div>
+                  <div className='font-semibold'>
+                    + {humanizeNumber(nanoToNumber(Number(fee)), 'standard', 8)} TON
+                  </div>
                 </div>
               </div>
 

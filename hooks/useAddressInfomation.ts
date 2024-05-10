@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const useAddressInfomation = (address: string) => {
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ['getAddressInfomation', address],
+    queryKey: ['addressInfomation', address],
     queryFn: async () =>
       axios.request({
         method: 'GET',
