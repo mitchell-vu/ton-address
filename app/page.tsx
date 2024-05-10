@@ -39,7 +39,7 @@ const MOCK_CRYPTO = [
   {
     name: 'Tether',
     abbreviation: 'USDT',
-    imageUrl: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
+    imageUrl: 'https://cryptologos.cc/logos/tether-usdt-logo.png?v=002',
     price: 0.9995,
     trend: -0.08,
   },
