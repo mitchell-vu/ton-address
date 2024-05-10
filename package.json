@@ -28,6 +28,7 @@
     "@nextui-org/switch": "^2.0.28",
     "@nextui-org/system": "2.1.0",
     "@nextui-org/theme": "2.2.0",
+    "@orbs-network/ton-access": "^2.3.3",
     "@phosphor-icons/react": "^2.1.5",
     "@react-aria/ssr": "^3.9.2",
     "@react-aria/visually-hidden": "^3.8.10",
@@ -55,6 +56,8 @@
     "react-dom": "18.2.0",
     "tailwind-variants": "^0.1.20",
     "tailwindcss": "3.4.3",
+    "ton": "^13.9.0",
+    "ton-core": "^0.53.0",
     "typescript": "5.0.4",
     "vite-plugin-node-polyfills": "^0.21.0"
   },
