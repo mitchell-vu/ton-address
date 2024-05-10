@@ -100,7 +100,7 @@ const Home: React.FC = () => {
           {
             icon: <ArrowUp size={20} weight='bold' />,
             label: 'Send',
-            onClick: () => router.push('/send'),
+            onClick: () => router.push('/transfer'),
           },
           {
             icon: <ArrowDown size={20} weight='bold' />,
